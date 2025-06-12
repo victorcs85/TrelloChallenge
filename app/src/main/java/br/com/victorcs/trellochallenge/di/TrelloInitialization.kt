@@ -12,8 +12,10 @@ import br.com.victorcs.trellochallenge.data.source.remote.inteceptor.Connectivit
 import br.com.victorcs.trellochallenge.domain.mapper.DomainMapper
 import br.com.victorcs.trellochallenge.domain.model.BoardItem
 import br.com.victorcs.trellochallenge.domain.repository.IBoardsRepository
+import br.com.victorcs.trellochallenge.presentation.features.boards.BoardsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 private const val TRELLO_BASE_URL = "https://api.trello.com/1/members/me/"
@@ -25,6 +27,7 @@ class TrelloInitialization : ModuleInitialization() {
         single { WifiService(context = androidContext()) }
         single<IDispatchersProvider> { IDispatchersProviderImpl() }
         single { ConnectivityInterceptor(wifiService = get()) }
+
         single {
             RetrofitConfig.create(
                 service = TrelloService::class.java,
@@ -43,12 +46,13 @@ class TrelloInitialization : ModuleInitialization() {
 
     //region Repository Module
     private val repositoryModule = module {
-        single<IBoardsRepository> { BoardsRepositoryImpl( service = get(), mapper = get()) }
+        single<IBoardsRepository> { BoardsRepositoryImpl(service = get(), mapper = get()) }
     }
     //endregion
 
     //region ViewModel Module
     private val viewModelModule = module {
+        viewModel { BoardsViewModel(repository = get(), dispatchers = get()) }
     }
     //endregion
 

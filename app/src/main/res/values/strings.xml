@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TrelloChallenge</string>
+
+    <string name="boards_title_label">Boards</string>
 </resources>
