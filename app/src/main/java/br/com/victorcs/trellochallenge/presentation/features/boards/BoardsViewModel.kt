@@ -3,8 +3,8 @@ package br.com.victorcs.trellochallenge.presentation.features.boards
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.viewModelScope
-import br.com.victorcs.trellochallenge.core.GENERIC_MESSAGE_ERROR
 import br.com.victorcs.trellochallenge.core.base.BaseViewModel
+import br.com.victorcs.trellochallenge.core.constants.GENERIC_MESSAGE_ERROR
 import br.com.victorcs.trellochallenge.core.providers.IDispatchersProvider
 import br.com.victorcs.trellochallenge.domain.model.BoardItem
 import br.com.victorcs.trellochallenge.domain.model.Response

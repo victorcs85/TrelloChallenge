@@ -1,7 +1,7 @@
 package br.com.victorcs.trellochallenge.core.extensions
 
-import br.com.victorcs.trellochallenge.core.GENERIC_MESSAGE_ERROR
-import br.com.victorcs.trellochallenge.core.NETWORK_ERROR
+import br.com.victorcs.trellochallenge.core.constants.GENERIC_MESSAGE_ERROR
+import br.com.victorcs.trellochallenge.core.constants.NETWORK_ERROR
 import br.com.victorcs.trellochallenge.data.source.remote.exceptions.WithoutNetworkException
 import br.com.victorcs.trellochallenge.domain.model.ErrorType
 import br.com.victorcs.trellochallenge.domain.model.Response

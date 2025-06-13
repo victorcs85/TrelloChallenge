@@ -62,6 +62,13 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.0"
     }
+    packaging {
+        resources {
+            excludes += "**/MANIFEST.MF"
+            excludes += "META-INF/LICENSE.md"
+            excludes += "META-INF/LICENSE-notice.md"
+        }
+    }
 }
 
 dependencies {
@@ -111,7 +118,43 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     //endregion
+    //region Unit Tests
     testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.mockk) { exclude(module = "org.objenesis") }
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.rules)
+    testImplementation(libs.androidx.runner)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.turbine)
+    testImplementation(libs.androidx.ui.test.junit4)
+    testImplementation(libs.koin.test.junit4)
+    testImplementation(libs.koin.android.test)
+    //endregion
+    //region Instrumented Tests
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.core)
+    androidTestImplementation(libs.mockito.android)
+    androidTestImplementation(libs.androidx.navigation.testing)
+    androidTestImplementation(libs.androidx.espresso.intents)
+    androidTestImplementation(libs.koin.test)
+    androidTestImplementation(libs.androidx.espresso.contrib) {
+        exclude(module = "protobuf-lite")
+    }
+    androidTestImplementation(libs.androidx.fragment.testing)
+    androidTestImplementation(libs.mockk.android) { exclude(module = "org.objenesis") }
+    androidTestImplementation(libs.androidx.uiautomator)
+    androidTestImplementation(libs.kotlinx.coroutines.test) {
+        exclude(module = "kotlinx-coroutines-debug")
+    }
+    androidTestImplementation(libs.androidx.core.testing)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.hamcrest.library)
+    androidTestImplementation(libs.hamcrest) {
+        exclude(group = "junit")
+    }
+    //endregion
 }

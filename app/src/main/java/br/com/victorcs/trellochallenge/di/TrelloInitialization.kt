@@ -1,5 +1,6 @@
 package br.com.victorcs.trellochallenge.di
 
+import br.com.victorcs.trellochallenge.core.constants.TRELLO_BASE_URL
 import br.com.victorcs.trellochallenge.core.providers.IDispatchersProvider
 import br.com.victorcs.trellochallenge.core.providers.IDispatchersProviderImpl
 import br.com.victorcs.trellochallenge.core.services.WifiService
@@ -19,8 +20,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
-
-private const val TRELLO_BASE_URL = "https://api.trello.com/1/members/me/"
 
 class TrelloInitialization : ModuleInitialization() {
 
