@@ -2,13 +2,11 @@ package br.com.victorcs.trellochallenge.presentation.features.main
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.rememberNavController
-import br.com.victorcs.trellochallenge.R
 import br.com.victorcs.trellochallenge.presentation.navigation.AppNavigation
+import br.com.victorcs.trellochallenge.presentation.views.TopBar
 
 @Composable
 fun MainScreen() {
@@ -17,7 +15,7 @@ fun MainScreen() {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { Text(text = stringResource(R.string.boards_title_label)) },
+        topBar = { TopBar() },
         content = { innerPadding ->
             AppNavigation(innerPadding, navController)
         }

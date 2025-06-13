@@ -12,6 +12,8 @@ import br.com.victorcs.trellochallenge.data.source.remote.inteceptor.Connectivit
 import br.com.victorcs.trellochallenge.domain.mapper.DomainMapper
 import br.com.victorcs.trellochallenge.domain.model.BoardItem
 import br.com.victorcs.trellochallenge.domain.repository.IBoardsRepository
+import br.com.victorcs.trellochallenge.domain.usecases.GetBoardsUseCaseImpl
+import br.com.victorcs.trellochallenge.domain.usecases.IGetBoardsUseCase
 import br.com.victorcs.trellochallenge.presentation.features.boards.BoardsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
@@ -50,9 +52,15 @@ class TrelloInitialization : ModuleInitialization() {
     }
     //endregion
 
+    //region UseCase Module
+    private val useCaseModule = module {
+        single<IGetBoardsUseCase> { GetBoardsUseCaseImpl(repository = get()) }
+    }
+    //endregion
+
     //region ViewModel Module
     private val viewModelModule = module {
-        viewModel { BoardsViewModel(repository = get(), dispatchers = get()) }
+        viewModel { BoardsViewModel(useCase = get(), dispatchers = get()) }
     }
     //endregion
 
@@ -60,6 +68,7 @@ class TrelloInitialization : ModuleInitialization() {
         remoteModule,
         mapperModule,
         repositoryModule,
+        useCaseModule,
         viewModelModule
     )
 }

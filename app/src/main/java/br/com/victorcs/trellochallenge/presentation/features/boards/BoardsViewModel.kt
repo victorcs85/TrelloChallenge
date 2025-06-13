@@ -8,7 +8,7 @@ import br.com.victorcs.trellochallenge.core.base.BaseViewModel
 import br.com.victorcs.trellochallenge.core.providers.IDispatchersProvider
 import br.com.victorcs.trellochallenge.domain.model.BoardItem
 import br.com.victorcs.trellochallenge.domain.model.Response
-import br.com.victorcs.trellochallenge.domain.repository.IBoardsRepository
+import br.com.victorcs.trellochallenge.domain.usecases.IGetBoardsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.stateIn
 private const val STOP_TIMER_LIMIT = 5000L
 
 class BoardsViewModel(
-    private val repository: IBoardsRepository,
+    private val useCase: IGetBoardsUseCase,
     dispatchers: IDispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
@@ -44,7 +44,7 @@ class BoardsViewModel(
                 _state.value = _state.value.copy(
                     isLoading = true
                 )
-                val boardsResponse = repository.getBoards()
+                val boardsResponse = useCase.invoke()
 
                 when (boardsResponse) {
                     is Response.Success -> {

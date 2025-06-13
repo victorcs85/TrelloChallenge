@@ -7,7 +7,7 @@ import retrofit2.http.Query
 interface TrelloService {
 
     @GET("boards")
-    fun getBoards(
+    suspend fun getBoards(
         @Query("key") key: String,
         @Query("token") token: String
     ): List<BoardItemDto>

@@ -26,7 +26,7 @@ fun AppNavigation(
             val viewModel: BoardsViewModel = koinViewModel()
             val state = viewModel.screenState.collectAsStateWithLifecycle().value
 
-            BoardsScreen(navController, state, viewModel::execute)
+            BoardsScreen(state, viewModel::execute)
         }
     }
 }

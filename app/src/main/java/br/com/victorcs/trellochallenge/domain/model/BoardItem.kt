@@ -4,5 +4,6 @@ data class BoardItem(
     val id: String,
     val name: String,
     val desc: String,
-    val closed: Boolean
+    val closed: Boolean,
+    val position: Int? = null
 )
