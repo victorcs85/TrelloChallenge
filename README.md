@@ -1,9 +1,11 @@
 # TrelloChallenge 📅
 
-Consuming the [Trello API](https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/)  to show user cards list. Using Jetpack Compose to build the UI with Clean Architecture.
+Consuming the [Trello API](https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/)  to show user board cards list. Using Jetpack Compose to build the UI with Clean Architecture.
+
+![Screenshot_20250614_000210.png](screenshots/Screenshot_20250614_000210.png)
 
 ### Features 🖋️
-- **List screen with user cards**
+- **List screen with user board cards**
 
 ### Technical Requirements 🏆
 | Android            |
