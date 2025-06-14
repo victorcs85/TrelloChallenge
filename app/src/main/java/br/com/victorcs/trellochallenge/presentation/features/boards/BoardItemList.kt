@@ -26,9 +26,9 @@ import br.com.victorcs.trellochallenge.domain.model.BoardItem
 import br.com.victorcs.trellochallenge.presentation.theme.LIGHT_GRAY_COLOR
 import br.com.victorcs.trellochallenge.presentation.theme.WHITE_COLOR
 
-const val BOARD_POSITION_TEST_TAG = "board_position_test_tag"
-const val BOARD_NAME_TEST_TAG = "board_name_test_tag"
-const val BOARD_DESC_TEST_TAG = "board_desc_test_tag"
+const val BOARD_POSITION_TEST_TAG = "board_position"
+const val BOARD_NAME_TEST_TAG = "board_name"
+const val BOARD_DESC_TEST_TAG = "board_desc"
 
 @Composable
 fun BoardItemList(boardItem: BoardItem, onClick: () -> Unit) {
@@ -100,12 +100,12 @@ fun BoardItemList(boardItem: BoardItem, onClick: () -> Unit) {
 @Composable
 fun BoardItemPreview() {
     BoardItemList(
-        boardItem = getMockExchange(),
+        boardItem = getBoardItemMock(),
         onClick = {},
     )
 }
 
-private fun getMockExchange() = BoardItem(
+private fun getBoardItemMock() = BoardItem(
     id = "1",
     name = "Board",
     desc = "Description 1",

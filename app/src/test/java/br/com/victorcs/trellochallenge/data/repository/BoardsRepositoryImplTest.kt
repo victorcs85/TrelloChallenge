@@ -37,21 +37,21 @@ class BoardsRepositoryImplTest {
 
     @Test
     fun givenValidKeyToken_whenGetBoardsData_thenReturnBoardsSuccessfully() = runTest {
-        val mockResponse = MockTests.boardItemsDtoMock
-        val mockDomain = MockTests.boardItemsMock
+        val responseMock = MockTests.boardItemsDtoMock
+        val domainMock = MockTests.boardItemsMock
 
-        coEvery { remoteDataService.getBoards(key = any(), token = any()) } returns mockResponse
-        every { mapper.toDomain(mockResponse) } returns mockDomain
+        coEvery { remoteDataService.getBoards(key = any(), token = any()) } returns responseMock
+        every { mapper.toDomain(responseMock) } returns domainMock
 
         val result = repository.getBoards()
 
-        assert(result is Response.Success && result.data == mockDomain)
+        assert(result is Response.Success && result.data == domainMock)
     }
 
     @Test
     fun givenInvalidKeyToken_whenGetBoardsData_thenReturnError() = runTest {
-        val mockResponse = MockTests.boardItemsDtoMock
-        val mockDomain = MockTests.boardItemsMock
+        val responseMock = MockTests.boardItemsDtoMock
+        val domainMock = MockTests.boardItemsMock
 
         coEvery {
             remoteDataService.getBoards(
@@ -59,7 +59,7 @@ class BoardsRepositoryImplTest {
                 token = any()
             )
         } throws MockTests.genericErrorMock
-        every { mapper.toDomain(mockResponse) } returns mockDomain
+        every { mapper.toDomain(responseMock) } returns domainMock
 
         val result = repository.getBoards()
 
@@ -68,8 +68,8 @@ class BoardsRepositoryImplTest {
 
     @Test
     fun givenWithoutNetwork_whenGetBoardsData_thenReturnError() = runTest {
-        val mockResponse = MockTests.boardItemsDtoMock
-        val mockDomain = MockTests.boardItemsMock
+        val responseMock = MockTests.boardItemsDtoMock
+        val domainMock = MockTests.boardItemsMock
 
         coEvery {
             remoteDataService.getBoards(
@@ -77,7 +77,7 @@ class BoardsRepositoryImplTest {
                 token = any()
             )
         } throws MockTests.errorNetworkMock
-        every { mapper.toDomain(mockResponse) } returns mockDomain
+        every { mapper.toDomain(responseMock) } returns domainMock
 
         val result = repository.getBoards()
 

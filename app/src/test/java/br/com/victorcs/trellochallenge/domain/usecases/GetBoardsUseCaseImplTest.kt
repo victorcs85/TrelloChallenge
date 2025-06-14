@@ -6,7 +6,6 @@ import br.com.victorcs.trellochallenge.domain.model.Response
 import br.com.victorcs.trellochallenge.domain.repository.IBoardsRepository
 import br.com.victorcs.trellochallenge.shared.test.MockTests
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -32,15 +31,15 @@ class GetBoardsUseCaseImplTest {
 
     @Test
     fun givenValidFlow_whenGetBoardsData_thenReturnBoardsSuccessfully() = runTest {
-        val mockResponse = MockTests.boardItemsResponseMock
-        val mockRepositoryResponse = Response.Success(MockTests.boardItemsMock)
+        val responseMock = MockTests.boardItemsResponseMock
+        val repositoryResponseMock = Response.Success(MockTests.boardItemsMock)
 
-        coEvery { useCase.invoke() } returns mockResponse
-        coEvery { repository.getBoards() } returns mockRepositoryResponse
+        coEvery { useCase.invoke() } returns responseMock
+        coEvery { repository.getBoards() } returns repositoryResponseMock
 
         val result = repository.getBoards()
 
-        assert(result is Response.Success && result.data == mockResponse.data)
+        assert(result is Response.Success && result.data == responseMock.data)
     }
 
     @Test

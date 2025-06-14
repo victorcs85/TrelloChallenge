@@ -46,15 +46,13 @@ fun BoardsScreenContent(
         )
 
         state.isLoading -> LoadingView()
-        state.boards?.isEmpty().orFalse() -> EmptyInfoListView(
+        state.boards?.isEmpty().orFalse() || state.boards == null -> EmptyInfoListView(
             buttonLabel = stringResource(R.string.reload),
             buttonAction = {
                 execute(BoardsIntent.FetchBoards)
             },
             modifier = null,
         )
-
-        state.boards == null -> Unit
 
         else -> BoardList(
             boards = state.boards,
