@@ -14,6 +14,7 @@ import br.com.victorcs.trellochallenge.presentation.MainActivity
 import br.com.victorcs.trellochallenge.presentation.utils.TestDispatchersProvider
 import br.com.victorcs.trellochallenge.presentation.views.EMPTY_INFO_LIST_VIEW
 import br.com.victorcs.trellochallenge.presentation.views.ERROR_MESSAGE_VIEW
+import br.com.victorcs.trellochallenge.presentation.views.LOADING_VIEW_TEST_TAG
 import br.com.victorcs.trellochallenge.shared.test.MockTests
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -35,23 +36,25 @@ class BoardsScreenTest {
 
     @Before
     fun setUp() {
-        viewModel = BoardsViewModel(useCase, TestDispatchersProvider)
-
         coEvery { useCase.invoke() } returns MockTests.boardItemsResponseMock
+    }
 
-        composeTestRule.activity.setContent {
-            val state = viewModel.screenState.collectAsStateWithLifecycle().value
-
-            BoardsScreen(
-                state,
-                execute = viewModel::execute,
-            )
+    private fun launchScreen() {
+        viewModel = BoardsViewModel(useCase, TestDispatchersProvider)
+        composeTestRule.activity.runOnUiThread {
+            composeTestRule.activity.setContent {
+                val state = viewModel.screenState.collectAsStateWithLifecycle().value
+                BoardsScreen(
+                    state,
+                    execute = viewModel::execute,
+                )
+            }
         }
     }
 
     @Test
     fun givenScreen_whenLoadedData_thenSuccessfullyData() {
-
+        launchScreen()
         composeTestRule.run {
             onNodeWithTag(BOARD_POSITION_TEST_TAG).isDisplayed()
             onNodeWithTag(BOARD_NAME_TEST_TAG).isDisplayed()
@@ -62,6 +65,7 @@ class BoardsScreenTest {
 
     @Test
     fun givenEmptyData_whenLoadedData_thenSShowError() {
+        launchScreen()
         coEvery { useCase.invoke() } returns MockTests.emptyResponseMock
 
         composeTestRule.run {
@@ -75,6 +79,7 @@ class BoardsScreenTest {
 
     @Test
     fun givenError_whenLoadedData_thenSShowError() {
+        launchScreen()
         coEvery { useCase.invoke() } returns MockTests.genericResponseErrorMock
 
         composeTestRule.run {
@@ -84,5 +89,18 @@ class BoardsScreenTest {
             onNodeWithTag(ERROR_MESSAGE_VIEW).isDisplayed()
             onNodeWithText(MockTests.GENERIC_ERROR).assertIsDisplayed()
         }
+    }
+    @Test
+    fun givenLoadingState_whenScreenComposed_thenShowLoadingView() {
+        composeTestRule.activity.runOnUiThread {
+            composeTestRule.activity.setContent {
+                BoardsScreen(
+                    state = BoardsScreenState(isLoading = true),
+                    execute = {}
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithTag(LOADING_VIEW_TEST_TAG).assertIsDisplayed()
     }
 }

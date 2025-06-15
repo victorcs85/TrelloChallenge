@@ -69,6 +69,11 @@ android {
             excludes += "META-INF/LICENSE-notice.md"
         }
     }
+    @Suppress("UnstableApiUsage")
+    testOptions {
+        animationsDisabled = true
+        unitTests.isIncludeAndroidResources = true
+    }
 }
 
 dependencies {
